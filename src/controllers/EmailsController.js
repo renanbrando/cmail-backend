@@ -45,6 +45,24 @@ export class EmailsController {
             )
     }
 
+    findEmail = async (req, res) => {
+        if(req.validations.hasErrors()) {
+            requestUtils.errorResponse(res, req.validations.errors)
+            return;
+        }
+
+        const emailId = req.params.id
+
+        this.emailRepository
+            .findEmailById(emailId)
+            .then(emailData => {
+                requestUtils.defaultResponse(res, emailData, HttpStatus.FOUND)
+            })
+            .catch(error => {
+                requestUtils.errorResponse(res, error, HttpStatus.NOT_FOUND)
+            });
+    }
+
     listAllEmailsFromUser = async (req,res) => {
         if(req.validations.hasErrors()) {
             requestUtils.errorResponse(res, req.validations.errors)

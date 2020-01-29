@@ -14,6 +14,22 @@ export class EmailsRepository {
         })
     }
 
+    findEmailById = (emailId) => {
+        return this.emails.findOne({
+            where: {
+                id: emailId
+            }
+        })
+        .then((emailFound) => {
+            const hasEmail = emailFound && emailFound.dataValues
+            if (hasEmail) {
+                return emailFound.dataValues
+            }
+            throw new Error(`Email id ${emailId} not found`)
+        })
+        
+    }
+
 
     getAllEmailsBySender = (sender) => {
         return this.emails.findAll({
