@@ -56,7 +56,7 @@ export class EmailsController {
         this.emailRepository
             .findEmailById(emailId)
             .then(emailData => {
-                requestUtils.defaultResponse(res, emailData, HttpStatus.FOUND)
+                requestUtils.defaultResponse(res, emailData, HttpStatus.CREATED)
             })
             .catch(error => {
                 requestUtils.errorResponse(res, error, HttpStatus.NOT_FOUND)
